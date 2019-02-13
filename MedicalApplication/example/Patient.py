@@ -1,6 +1,7 @@
 from flask.app import Flask
 from flask_sqlalchemy import SQLAlchemy
 import jsonpickle
+from flask.templating import render_template
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']='mysql+mysqlconnector://root:root@localhost:3306/medicalreports'
@@ -35,6 +36,16 @@ def example_Patient():
               "Location:",p.patient_location,"Occupation:",p.patient_occupation)
         
     return jsonpickle.encode(Patient.query.all())
+
+
+@app.route("/web/patient")
+def display_pat_page():
+    return render_template('/patient.html',result=PatientStorage.fetch_all_patients_from_db(),
+                           content_type="application/json")
+    
+    
+    
+    
 if __name__ == '__main__':
     #db.create_all()
     example_Patient()
