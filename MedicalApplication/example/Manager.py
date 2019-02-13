@@ -30,7 +30,7 @@ def create_manager():
     for man in Manager.query.all():
         print("ID: "+str(man.manager_id)+" Name: "+man.name )
     
-    return str(Manager.query.all())
+    return jsonpickle.encode(Manager.query.all())
 
 @app.route("/manager-fetch")
 def fetch_all_managers():
