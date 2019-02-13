@@ -37,7 +37,7 @@ def fetch_all_managers():
     managers = Manager.query.all()
     
     for man in managers:
-         print("ID: "+str(man.manager_id)+" Name: "+man.name)
+        print("ID: "+str(man.manager_id)+" Name: "+man.name)
         
     return jsonpickle.encode(managers)
 
