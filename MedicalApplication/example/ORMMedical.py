@@ -26,6 +26,7 @@ class Patient(db.Model):
 def example_Patient():
     p = Patient ({"patient_name":"Bill Billson","patient_date_of_birth":"19/03/1994","patient_location":"Leeds","patient_occupation":"Staff"})
     db.session.add(p)
+    db.session.commit()
     patients = Patient.query.all()
     for p in patients: 
         print("Id",p.patient_id,"Name:",p.patient_name,"D.O.B",p.patient_date_of_birth,
