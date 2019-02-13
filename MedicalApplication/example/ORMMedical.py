@@ -1,5 +1,6 @@
 from flask.app import Flask
 from flask_sqlalchemy import SQLAlchemy
+import jsonpickle
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']='mysql+mysqlconnector://root:root@localhost:3306/medicalreports'
@@ -24,7 +25,7 @@ class Patient(db.Model):
     
 @app.route("/patient/example")
 def example_Patient():
-    p = Patient ({"patient_name":"Bill","patient_date_of_birth":"19/03/1994","patient_location":"York","patient_occupation":"Staff"})
+    p = Patient ({"patient_name":"John","patient_date_of_birth":"19/03/1995","patient_location":"Leeds","patient_occupation":"Bacon Eater"})
     db.session.add(p)
     db.session.commit()
     patients = Patient.query.all()
@@ -33,7 +34,7 @@ def example_Patient():
         print("Patient Id:",p.patient_id,"Name:",p.patient_name,"D.O.B:",p.patient_date_of_birth,
               "Location:",p.patient_location,"Occupation:",p.patient_occupation)
         
-    return str(Patient.query.all())
+    return jsonpickle.encode(Patient.query.all())
 if __name__ == '__main__':
     #db.create_all()
     example_Patient()
