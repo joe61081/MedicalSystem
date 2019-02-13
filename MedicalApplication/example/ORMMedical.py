@@ -24,7 +24,7 @@ class Patient(db.Model):
     
 @app.route("/patient/examle")
 def example_Patient():
-    p = Patient ({"name":"Bill Billson","Date of Birth":"19/03/1994","Location":"Leeds","Occupation":"Staff"})
+    p = Patient ({"patient_name":"Bill Billson","patient_date_of_birth":"19/03/1994","patient_location":"Leeds","patient_occupation":"Staff"})
     db.session.add(p)
     patients = Patient.query.all()
     for p in patients: 
