@@ -20,17 +20,17 @@ class Patient(db.Model):
         self.patient_occupation=params["patient_occupation"]
         
     def __str__(self):
-        return "Patient Id:"+str(self.patient_id)+"Name:"+self.patient_name+"Date Of Birth:"+self.patient_date_of_birth+"Location:"+self.patient_date_of_birth+"Occupation:"+self.patient_occupation
+        return "Patient Id:"+str(self.patient_id)+"Name:"+self.patient_name+"D.O.B:"+self.patient_date_of_birth+"Location:"+self.patient_date_of_birth+"Occupation:"+self.patient_occupation
     
 @app.route("/patient/example")
 def example_Patient():
-    p = Patient ({"patient_name":"Bill Billson","patient_date_of_birth":"19/03/1994","patient_location":"Leeds","patient_occupation":"Staff"})
+    p = Patient ({"patient_name":"Bill","patient_date_of_birth":"19/03/1994","patient_location":"York","patient_occupation":"Staff"})
     db.session.add(p)
     db.session.commit()
     patients = Patient.query.all()
     for p in patients: 
-        print("Id",p.patient_id,"Name:",p.patient_name,"D.O.B",p.patient_date_of_birth,
-              "Location",p.patient_location,"Occupation",p.patient_occupation)
+        print("Patient Id:",p.patient_id,"Name:",p.patient_name,"D.O.B:",p.patient_date_of_birth,
+              "Location:",p.patient_location,"Occupation:",p.patient_occupation)
     return str(Patient.query.all())
 if __name__ == '__main__':
     db.create_all()
