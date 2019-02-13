@@ -33,6 +33,7 @@ def example_Patient():
               "Location",p.patient_location,"Occupation",p.patient_occupation)
     return str(Patient.query.all())
 if __name__ == '__main__':
-    db.create_all()
+    #db.create_all()
+    example_Patient()
     app.run(port=7700)
     pass
