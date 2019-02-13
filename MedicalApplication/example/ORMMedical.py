@@ -28,12 +28,14 @@ def example_Patient():
     db.session.add(p)
     db.session.commit()
     patients = Patient.query.all()
+    
     for p in patients: 
         print("Patient Id:",p.patient_id,"Name:",p.patient_name,"D.O.B:",p.patient_date_of_birth,
               "Location:",p.patient_location,"Occupation:",p.patient_occupation)
+        
     return str(Patient.query.all())
 if __name__ == '__main__':
-    db.create_all()
-    #example_Patient()
+    #db.create_all()
+    example_Patient()
     app.run(port=7700)
     pass
