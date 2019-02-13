@@ -2,6 +2,7 @@ from flask.app import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import backref
 from _datetime import datetime
+import jsonpickle
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root@localhost:3306/medicalreports'
@@ -35,6 +36,15 @@ def create_report():
         print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+rep.date )
     
     return str(Report.query.all())
+
+@app.route("/report-fetch")
+def fetch_all_reports():
+    reports = Report.query.all()
+    
+    for rep in reports:
+         print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+rep.date)
+        
+    return jsonpickle.encode(reports)
 
 if __name__ == '__main__':
     db.create_all() #create the schema using the alchemy context
