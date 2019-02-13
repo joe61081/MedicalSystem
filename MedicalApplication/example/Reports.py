@@ -1,16 +1,20 @@
 from flask.app import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import backref
+from _datetime import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root@localhost:3306/medicalreports'
 db = SQLAlchemy(app)
 
+def getTimestamp():
+        return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
 class Report(db.Model):
     __tablename__ = "med_patients"
     report_id = db.Column(db.Integer,primary_key=True)
     condition = db.Column('condition',db.String(50))
-    date = db.Column('date',db.String(20))
+    date = db.Column('date', db.TIMESTAMP, nullable=False)
     
     def __init__(self,params):
         self.condition = params["condition"]
@@ -22,7 +26,7 @@ class Report(db.Model):
 
 @app.route("/report-create")
 def create_report():
-    rep = Report({"condition":"cough","date":"14/18/2019" })
+    rep = Report({"condition":"cough","date":getTimestamp()})
     
     db.session.add(rep)
     db.session.commit()
