@@ -9,7 +9,7 @@ class Patient(db.Model):
     __tablename__ = "alc_Patients"
     patient_id = db.Column(db.Integer,primary_key=True) 
     patient_name = db.Column('patient_name',db.String(20))
-    patient_date_of_birth = db.Column('patient_date_of_birth',db.Integer)
+    patient_date_of_birth = db.Column('patient_date_of_birth',db.String(30))
     patient_location = db.Column('patient_location',db.String(30))
     patient_occupation = db.Column('patient_occupation',db.String(30))
     
@@ -22,9 +22,9 @@ class Patient(db.Model):
     def __str__(self):
         return "Patient Id:"+str(self.patient_id)+"Name:"+self.patient_name+"Date Of Birth:"+self.patient_date_of_birth+"Location:"+self.patient_date_of_birth+"Occupation:"+self.patient_occupation
     
-@app.route("/patient/examle")
+@app.route("/patient/example")
 def example_Patient():
-    p = Patient ({"name":"Bill Billson","Date of Birth":"19/03/1994","Location":"Leeds","Occupation":"Staff"})
+    p = Patient ({"patient_name":"Bill Billson","patient_date_of_birth":"19/03/1994","patient_location":"Leeds","patient_occupation":"Staff"})
     db.session.add(p)
     patients = Patient.query.all()
     for p in patients: 
