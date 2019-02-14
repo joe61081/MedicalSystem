@@ -117,9 +117,9 @@ def fetch_all_Patient():
              }))
     db.session.commit()
     
-
-
-
+    
+@app.route(rule)
+def manager():
     __tablename__ = "alc_Managers"
     manager_id = db.Column(db.Integer, primary_key=True)
     name = db.Column('manager_name', db.String(50))
