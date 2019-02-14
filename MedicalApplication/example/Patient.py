@@ -124,8 +124,8 @@ def create_report():
     
     db.session.add(
         Report({
-            "condition": request.form.get('condition')
-            }))
+            "condition": request.form.get('condition'),
+            "date": request.form.get('date').getTimestamp()}))
     db.session.commit()
 
      
