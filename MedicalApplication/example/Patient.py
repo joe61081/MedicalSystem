@@ -21,6 +21,8 @@ class Patient(db.Model):
     #manager_id = db.Column(db.Integer,db.ForeignKey('alc_Managers.manager_id'),nullable=False)
     #reports = db.relationship("Report", backref=db.backref('Patients', lazy=True))
     
+    
+    
     def __init__(self,params):
         self.patient_name = params["patient_name"]
         self.patient_date_of_birth=params["patient_date_of_birth"]
@@ -95,7 +97,6 @@ def fetch_all_managers():
         
     return jsonpickle.encode(managers)
 
-
 def getTimestamp():
         return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
@@ -126,7 +127,11 @@ def create_report():
 
     
     for rep in Report.query.all():
+
         print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+str(rep.date) )
+
+        print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+str(rep.date))
+
     
     return str(Report.query.all())
 
@@ -139,10 +144,8 @@ def fetch_all_reports():
         
     return jsonpickle.encode(reports)
 
-
-
-
 if __name__ == '__main__':
+    db.create_all()
 
     #db.create_all()
     #create_manager()
