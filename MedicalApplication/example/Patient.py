@@ -81,8 +81,8 @@ def create_manager():
     #man = Manager({"name":"Test Manager 3"})
     
     db.session.add(
-        ({
-            "name": request.form.get('name'),}))
+        Manager({
+            "name": request.form.get('name')}))
     db.session.commit()
     managers = Manager.query.all()
     for man in managers:
@@ -118,24 +118,27 @@ class Report(db.Model):
     def __str__(self):
         return "Id:"+str(self.report_id)+" condition:"+self.condition+ "date:"+str(self.date)
 
-@app.route("/report-create")
+@app.route('/report-create', methods = ['POST'] )
 def create_report():
-    rep = Report({"condition":"cough","date":getTimestamp()}) 
+    #rep = Report({"condition":"cough","date":getTimestamp()}) 
     
-    db.session.add(rep)
+    db.session.add(
+        Report({
+            "condition": request.form.get('condition')
+            }))
     db.session.commit()
 
      
 
-    
-    for rep in Report.query.all():
+    reports = Report.query.all()
+    for rep in reports:
 
         print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+str(rep.date) )
 
         print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+str(rep.date))
 
     
-    return str(Report.query.all())
+    return jsonpickle.encode(reports)
 
 @app.route("/report-fetch")
 def fetch_all_reports():
@@ -147,7 +150,7 @@ def fetch_all_reports():
     return jsonpickle.encode(reports)
 
 if __name__ == '__main__':
-    db.create_all()
+    #db.create_all()
 
     #db.create_all()
     #create_manager()
