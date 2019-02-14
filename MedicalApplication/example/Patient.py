@@ -26,10 +26,7 @@ class Patient(db.Model):
         
     def __str__(self):
         return "Patient Id:"+str(self.patient_id)+"Name:"+self.patient_name+"D.O.B:"+self.patient_date_of_birth+"Location:"+self.patient_date_of_birth+"Occupation:"+self.patient_occupation
-    
-
-
-
+   
 @app.route("/patient/create")
 def create_Patient():
     p = Patient({"patient_name":"dave","patient_date_of_birth":"19/03/1997","patient_location":"Leeds","patient_occupation":"driver"})
@@ -106,11 +103,7 @@ def create_report():
     rep = Report({"condition":"cough","date":getTimestamp()}) 
     
     db.session.add(rep)
-    db.session.commit()
-
-     
-
-    
+    db.session.commit()  
     for rep in Report.query.all():
         print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+rep.date )
     
@@ -124,9 +117,6 @@ def fetch_all_reports():
         print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+rep.date)
         
     return jsonpickle.encode(reports)
-
-
-
 
 if __name__ == '__main__':
 
