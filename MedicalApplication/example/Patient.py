@@ -15,6 +15,8 @@ class Patient(db.Model):
     patient_location = db.Column('patient_location',db.String(30))
     patient_occupation = db.Column('patient_occupation',db.String(30))
     
+    
+    
     def __init__(self,params):
         self.patient_name = params["patient_name"]
         self.patient_date_of_birth=params["patient_date_of_birth"]
@@ -37,17 +39,8 @@ def example_Patient():
         
     return jsonpickle.encode(Patient.query.all())
 
-
-@app.route("/web/patient")
-def display_pat_page():
-    return render_template('/patient.html',result=PatientStorage.fetch_all_patients_from_db(),
-                           content_type="application/json")
-    
-    
-    
-    
 if __name__ == '__main__':
-    #db.create_all()
+    db.create_all()
     example_Patient()
     app.run(port=7700)
     pass
