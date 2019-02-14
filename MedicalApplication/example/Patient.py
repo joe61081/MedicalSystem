@@ -23,23 +23,30 @@ class Patient(db.Model):
     def __str__(self):
         return "Patient Id:"+str(self.patient_id)+"Name:"+self.patient_name+"D.O.B:"+self.patient_date_of_birth+"Location:"+self.patient_date_of_birth+"Occupation:"+self.patient_occupation
     
-@app.route("/patient/example")
-def example_Patient():
-    p = Patient ({"patient_name":"John","patient_date_of_birth":"19/03/1995","patient_location":"Leeds","patient_occupation":"Bacon Eater"})
+
+
+@app.route("/patient/create")
+def create_Patient():
+    p = Patient({"patient_name":"dave","patient_date_of_birth":"19/03/1997","patient_location":"Leeds","patient_occupation":"driver"})
     db.session.add(p)
     db.session.commit()
+    
+    for p in Patient.query.all(): 
+        print("Patient Id:"+str(p.patient_id)+"Name:"+p.patient_name+"D.O.B:"+p.patient_date_of_birth+"Location:"+p.patient_date_of_birth+"Occupation:"+p.patient_occupation)
+     
+@app.route("/patient/example")
+def fetch_all_Patient():
+    
     patients = Patient.query.all()
     
     for p in patients: 
-        print("Patient Id:",p.patient_id,"Name:",p.patient_name,"D.O.B:",p.patient_date_of_birth,
-              "Location:",p.patient_location,"Occupation:",p.patient_occupation)
+        print("Patient Id:"+str(p.patient_id)+"Name:"+p.patient_name+"D.O.B:"+p.patient_date_of_birth+"Location:"+p.patient_date_of_birth+"Occupation:"+p.patient_occupation)
         
-    return jsonpickle.encode(Patient.query.all())
-
- 
+    return jsonpickle.encode(patients)    
+     
     
 if __name__ == '__main__':
-    #db.create_all()
-    example_Patient()
+    db.create_all()
+    create_Patient()
     app.run(port=7700)
     pass
