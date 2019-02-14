@@ -20,10 +20,9 @@ class Patient(db.Model):
     patient_occupation = db.Column('patient_occupation',db.String(30))
     #manager_id = db.Column(db.Integer,db.ForeignKey('alc_Managers.manager_id'),nullable=False)
     #reports = db.relationship("Report", backref=db.backref('Patients', lazy=True))
-<<<<<<< HEAD
-=======
+
     reports = db.relationship("Report")
->>>>>>> branch 'master' of https://github.com/joe61081/MedicalSystem.git
+
     
     def __init__(self,params):
         self.patient_name = params["patient_name"]
@@ -51,7 +50,7 @@ def create_Patient():
     for p in patients: 
         print("Patient Id:"+str(p.patient_id)+"Name:"+p.patient_name+"D.O.B:"+p.patient_date_of_birth+"Location:"+p.patient_date_of_birth+"Occupation:"+p.patient_occupation)
     
-<<<<<<< HEAD
+
     return jsonpickle.encode(patients) 
 
 @app.route('/patient')
@@ -81,11 +80,11 @@ def delete_manager():
     return render_template('show_all.html',manager =Manager.query.all())
 
 @app.route("/patient/fetch")
-=======
+
     return render_template("patient.html", result=patients, content_type="application/json")
 
 @app.route("/patient/example")
->>>>>>> branch 'master' of https://github.com/joe61081/MedicalSystem.git
+
 def fetch_all_Patient():
     
     patients = Patient.query.all()
@@ -93,13 +92,12 @@ def fetch_all_Patient():
     for p in patients: 
         print("Patient Id:"+str(p.patient_id)+"Name:"+p.patient_name+"D.O.B:"+p.patient_date_of_birth+"Location:"+p.patient_date_of_birth+"Occupation:"+p.patient_occupation)
         
-<<<<<<< HEAD
+
     return jsonpickle.encode(patients)    
 =======
     return render_template("patient.html", result=patients, content_type="application/json")
       
->>>>>>> branch 'master' of https://github.com/joe61081/MedicalSystem.git
-   
+
 
 class Manager(db.Model):
     __tablename__ = "alc_Managers"
@@ -183,15 +181,14 @@ def create_report():
     db.session.commit()
 
      
-<<<<<<< HEAD
+
     for rep in Report.query.all():
 
-=======
 
     reports = Report.query.all()
     for rep in reports:
 
->>>>>>> branch 'master' of https://github.com/joe61081/MedicalSystem.git
+
         print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+str(rep.date) )
 
         print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+str(rep.date))
@@ -207,7 +204,7 @@ def fetch_all_reports():
         print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+rep.date)
         
     return jsonpickle.encode(reports)
-<<<<<<< HEAD
+
 
 if __name__ == '__main__':
     #db.create_all()
@@ -219,7 +216,7 @@ if __name__ == '__main__':
     db.create_all()
 
     
->>>>>>> branch 'master' of https://github.com/joe61081/MedicalSystem.git
+
     #create_manager()
     #create_report()
     #create_Patient()
