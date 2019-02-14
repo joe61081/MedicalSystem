@@ -134,14 +134,16 @@ def manager():
    
 
 
-@app.route("/manager-create")
+@app.route('/manager-create', methods = ['POST'])
 def create_manager():
-    man = Manager({"name":"Test Manager 3"})
+    #man = Manager({"name":"Test Manager 3"})
     
-    db.session.add(man)
+    db.session.add(
+        ({
+            "name": request.form.get('name'),}))
     db.session.commit()
-    
-    for man in Manager.query.all():
+    managers = Manager.query.all()
+    for man in managers:
         print("ID: "+str(man.manager_id)+" Name: "+man.name )
     
     return jsonpickle.encode(Manager.query.all())
