@@ -21,14 +21,14 @@
 	<td>{{pat.patient_name}}</td>
 	<td>{{pat.patient_date_of_birth}}</td>
 	<td>{{pat.patient_location}}</td>
-	<td>{{pat.patinet_occupation}}</td>
+	<td>{{pat.patient_occupation}}</td>
 	</tr>
 	{%endfor%}
 	<tr>
-	<td id="count" colspan="3">{{result|count}} : Patient </td>
+	<td id="count" colspan="5">Total Patients: {{result|count}} </td>
 	</tr>
 </table>
-<form id="pat-reg-form" method="POST" action="./patient/register">
+<form id="pat-reg-form" method="POST" action="/patient/create">
 <table>
 <tr>
 <td><input name="patient_name" placeholder="Name" id="name"></td>
