@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Patient Registration</title>
+</head>
+<body>
+{% include "navbar.html" %}
+<h1>Register as a Patient</h1>
+<form id="pat-reg-form" method="POST" action="/patient/create">
+<table>
+<tr>
+<td><input name="patient_name" placeholder="Name" id="name"></td>
+<td><input name="patient_date_of_birth" placeholder="D.O.B" id="date_of_birth"></td>
+<td><input name="patient_location" placeholder="Location" id="location"></td>
+<td><input name="patient_occupation" placeholder="Occupation" id="occupation"></td>
+<td><input id="add-emp" type="submit" value="Add"></td>
+</table>
+</form>
+</body>
+</html>

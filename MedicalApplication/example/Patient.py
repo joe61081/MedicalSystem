@@ -33,6 +33,9 @@ class Patient(db.Model):
         return "Patient Id:"+str(self.patient_id)+"Name:"+self.patient_name+"D.O.B:"+self.patient_date_of_birth+"Location:"+self.patient_date_of_birth+"Occupation:"+self.patient_occupation
     
 
+@app.route('/patient/register')
+def register_Patient():
+    return render_template("register.html", content_type="text/html")
 
 
 @app.route('/patient/create', methods = ['POST'])
