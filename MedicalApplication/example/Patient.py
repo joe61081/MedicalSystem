@@ -20,9 +20,7 @@ class Patient(db.Model):
     patient_occupation = db.Column('patient_occupation',db.String(30))
     #manager_id = db.Column(db.Integer,db.ForeignKey('alc_Managers.manager_id'),nullable=False)
     #reports = db.relationship("Report", backref=db.backref('Patients', lazy=True))
-
     reports = db.relationship("Report")
-
     
     def __init__(self,params):
         self.patient_name = params["patient_name"]
@@ -32,7 +30,6 @@ class Patient(db.Model):
        
         
     def __str__(self):
-<<<<<<< HEAD
         return "Patient Id:"+str(self.patient_id)+"Name:"+self.patient_name+"D.O.B:"+self.patient_date_of_birth+"Location:"+self.patient_date_of_birth+"Occupation:"+self.patient_occupation
     
 
@@ -41,12 +38,6 @@ def register_Patient():
     return render_template("register.html", content_type="text/html")
 
 
-=======
-        return "Patient Id:"+str(self.patient_id)+"Name:"+self.patient_name+"D.O.B:"+self.patient_date_of_birth+"Location:"+self.patient_date_of_birth+"Occupation:"+self.patient_occupation  
-@app.route('/show_all')
-def show_all():
-    return render_template('show_all.html',patient = Patient.query.all())
->>>>>>> branch 'master' of https://github.com/joe61081/MedicalSystem.git
 @app.route('/patient/create', methods = ['POST'])
 def create_Patient():
    # p = Patient({"patient_name":"dave","patient_date_of_birth":"19/03/1997","patient_location":"Leeds","patient_occupation":"driver"})
@@ -61,41 +52,9 @@ def create_Patient():
     for p in patients: 
         print("Patient Id:"+str(p.patient_id)+"Name:"+p.patient_name+"D.O.B:"+p.patient_date_of_birth+"Location:"+p.patient_date_of_birth+"Occupation:"+p.patient_occupation)
     
-
-    return jsonpickle.encode(patients) 
-
-@app.route('/patient')
-def patient():
-    db.create_all()
-    return render_template('patient.html')
-
-@app.route('/patient/delete')
-def delete_patient():
-    patient_id = request.args.get('patient_id')
-    patient = Patient.query.filter_by(patient_id=patient_id).first()
-    db.session.delete(patient)
-    db.session.commit()
-    return render_template('show_all.html',patient = Patient.query.all())
-
-@app.route('/manager')
-def manager():
-    db.create_all()
-    return render_template('manager.html')
-
-@app.route('/manager/delete')
-def delete_manager():
-    manager_id = request.args.get('manager_id')
-    manager = Manager.query.filter_by(manager_id=manager_id).first()
-    db.session.delete(manager)
-    db.session.commit()
-    return render_template('show_all.html',manager =Manager.query.all())
-
-@app.route("/patient/fetch")
-
     return render_template("patient.html", result=patients, content_type="application/json")
 
 @app.route("/patient/example")
-
 def fetch_all_Patient():
     
     patients = Patient.query.all()
@@ -103,12 +62,9 @@ def fetch_all_Patient():
     for p in patients: 
         print("Patient Id:"+str(p.patient_id)+"Name:"+p.patient_name+"D.O.B:"+p.patient_date_of_birth+"Location:"+p.patient_date_of_birth+"Occupation:"+p.patient_occupation)
         
-
-    return jsonpickle.encode(patients)    
-=======
     return render_template("patient.html", result=patients, content_type="application/json")
       
-
+   
 
 class Manager(db.Model):
     __tablename__ = "alc_Managers"
@@ -125,12 +81,7 @@ class Manager(db.Model):
         return "Id: "+str(self.manager_id)+" Name: "+self.name
    
 
-@app.route('/manager/register')
-def register_manager():
-    return render_template("manager.html", content_type="text/html")
-
-
-@app.route('/manager/create', methods = ['POST'])
+@app.route('/manager-create', methods = ['POST'])
 def create_manager():
     #man = Manager({"name":"Test Manager 3"})
     
@@ -142,7 +93,7 @@ def create_manager():
     for man in managers:
         print("ID: "+str(man.manager_id)+" Name: "+man.name )
     
-    return render_template("manager.html", result=managers, content_type="application/json")
+    return jsonpickle.encode(Manager.query.all())
 
 @app.route("/manager-fetch")
 def fetch_all_managers():
@@ -182,23 +133,16 @@ def create_report():
     db.session.add(
         Report({
             "condition": request.form.get('condition'),
-
-            
             "date": getTimestamp(),
             "patient_id":request.form.get("patient_id"),
             "manager_id":request.form.get("manager_id")
             }))
-
     db.session.commit()
 
      
 
-    for rep in Report.query.all():
-
-
     reports = Report.query.all()
     for rep in reports:
-
 
         print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+str(rep.date) )
 
@@ -216,18 +160,10 @@ def fetch_all_reports():
         
     return jsonpickle.encode(reports)
 
-
-if __name__ == '__main__':
-    #db.create_all()
-
-    #db.create_all()
-=======
-
 if __name__ == '__main__':
     db.create_all()
 
-    
-
+    #db.create_all()
     #create_manager()
     #create_report()
     #create_Patient()
