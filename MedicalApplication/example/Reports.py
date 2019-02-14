@@ -1,6 +1,5 @@
 from flask.app import Flask
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import backref
 from _datetime import datetime
 import jsonpickle
 
@@ -16,6 +15,7 @@ class Report(db.Model):
     report_id = db.Column(db.Integer,primary_key=True)
     condition = db.Column('condition',db.String(50))
     date = db.Column('date', db.TIMESTAMP, nullable=False)
+    reports = db.relationship("Report", backref=db.backref('patient', lazy=True))
     
     def __init__(self,params):
         self.condition = params["condition"]
@@ -33,7 +33,7 @@ def create_report():
     db.session.commit()
     
     for rep in Report.query.all():
-        print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+rep.date )
+        print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+str(rep.date))
     
     return str(Report.query.all())
 
@@ -48,7 +48,7 @@ def fetch_all_reports():
 
 if __name__ == '__main__':
     db.create_all() #create the schema using the alchemy context
-    create_report()
+    #create_report()
     
     app.run(port=7700)
     pass
