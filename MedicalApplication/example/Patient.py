@@ -166,6 +166,15 @@ def fetch_all_reports():
         
     return render_template("manager.html", result=reports, content_type="text/html")
 
+@app.route("/report/delete/<report_id>", methods=['POST', 'GET', 'DELETE'])
+def delete_report(report_id):
+    report_id = report_id
+    report = Report.query.filter_by(report_id=report_id).first()
+    db.session.delete(report)
+    db.session.commit()
+    reports = Report.query.all()
+    return render_template('manager.html',result=reports, content_type="text/html")
+
 if __name__ == '__main__':
     db.create_all()
 
