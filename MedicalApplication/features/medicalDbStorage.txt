@@ -1,0 +1,5 @@
+Feature: 
+
+Scenario: Add Patient Details
+	Given Patient Details
+	Then Add the Patient Details and increase the count 

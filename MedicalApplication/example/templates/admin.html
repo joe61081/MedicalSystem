@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Patient Information</title>
+</head>
+<body>
+<h1>Patient Information </h1>
+{% if result %}
+<table border="1">
+	<tr>
+	<th>Patient Id</th>
+	<th>Name</th>
+	<th>D.O.B</th>
+	<th>Location</th>
+	<th>Occupation</th>
+	</tr>
+	{% for pat in result %}
+	<tr>
+	<td>{{pat.patient_id}}</td>
+	<td>{{pat.patient_name}}</td>
+	<td>{{pat.patient_date_of_birth}}</td>
+	<td>{{pat.patient_location}}</td>
+	<td>{{pat.patient_occupation}}</td>
+	</tr>
+	{%endfor%}
+	<tr>
+	<td id="count" colspan="5">Total Patients: {{result|count}} </td>
+	</tr>
+</table>
+{%endif%}
