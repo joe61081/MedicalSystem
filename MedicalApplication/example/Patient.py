@@ -181,9 +181,14 @@ def fetch_all_reports():
     reports = Report.query.all()
     
     for rep in reports:
-        print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+rep.date)
+        print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+str(rep.date))
         
+<<<<<<< HEAD
     return jsonpickle.encode(reports)
+=======
+    return render_template("manager.html", result=reports, content_type="text/html")
+
+>>>>>>> branch 'master' of https://github.com/joe61081/MedicalSystem.git
 if __name__ == '__main__':
     db.create_all()
 
