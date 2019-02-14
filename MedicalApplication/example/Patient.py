@@ -64,7 +64,13 @@ def fetch_all_Patient():
         
     return render_template("patient.html", result=patients, content_type="application/json")
       
-   
+@app.route('/patient/delete')
+def delete_patient():
+    patient_id = request.args.get('patient_id')
+    patient = Patient.query.filter_by(patient_id=patient_id).first()
+    db.session.delete(patient)
+    db.session.commit()
+    return render_template('show_all.html',patient = Patient.query.all())
 
 class Manager(db.Model):
     __tablename__ = "alc_Managers"
