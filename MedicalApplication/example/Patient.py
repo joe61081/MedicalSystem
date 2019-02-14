@@ -1,6 +1,6 @@
 from flask.app import Flask, request, Response
 from sqlalchemy.orm import backref
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlAlchemy import SQLAlchemy
 import jsonpickle
 from flask.templating import render_template
 from _datetime import datetime
@@ -30,10 +30,9 @@ class Patient(db.Model):
        
         
     def __str__(self):
-<<<<<<< HEAD
 
-=======
->>>>>>> branch 'master' of https://github.com/joe61081/MedicalSystem.git
+
+
         return "Patient Id:"+str(self.patient_id)+"Name:"+self.patient_name+"D.O.B:"+self.patient_date_of_birth+"Location:"+self.patient_date_of_birth+"Occupation:"+self.patient_occupation
     
 
@@ -42,15 +41,15 @@ def register_Patient():
     return render_template("register.html", content_type="text/html")
 
 
-<<<<<<< HEAD
+
 
     return "Patient Id:"+str(self.patient_id)+"Name:"+self.patient_name+"D.O.B:"+self.patient_date_of_birth+"Location:"+self.patient_date_of_birth+"Occupation:"+self.patient_occupation  
 @app.route('/show_all')
 def show_all():
     return render_template('show_all.html',patient = Patient.query.all())
 
-=======
->>>>>>> branch 'master' of https://github.com/joe61081/MedicalSystem.git
+
+
 @app.route('/patient/create', methods = ['POST'])
 def create_Patient():
    # p = Patient({"patient_name":"dave","patient_date_of_birth":"19/03/1997","patient_location":"Leeds","patient_occupation":"driver"})
@@ -75,13 +74,12 @@ def fetch_all_Patient():
     for p in patients: 
         print("Patient Id:"+str(p.patient_id)+"Name:"+p.patient_name+"D.O.B:"+p.patient_date_of_birth+"Location:"+p.patient_date_of_birth+"Occupation:"+p.patient_occupation)
         
-<<<<<<< HEAD
+
 
     return jsonpickle.encode(patients)    
 
     return render_template("patient.html", result=patients, content_type="application/json")
-    
-=======
+
     return render_template("patient.html", result=patients, content_type="application/json")
       
 @app.route('/patient/delete')
@@ -92,7 +90,7 @@ def delete_patient():
     db.session.commit()
     return render_template('show_all.html',patient = Patient.query.all())
 
->>>>>>> branch 'master' of https://github.com/joe61081/MedicalSystem.git
+
 class Manager(db.Model):
     __tablename__ = "alc_Managers"
     manager_id = db.Column(db.Integer, primary_key=True)
@@ -186,10 +184,6 @@ def fetch_all_reports():
         print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+rep.date)
         
     return jsonpickle.encode(reports)
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'master' of https://github.com/joe61081/MedicalSystem.git
 if __name__ == '__main__':
     db.create_all()
 
