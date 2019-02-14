@@ -99,7 +99,7 @@ class Report(db.Model):
 
 @app.route("/report-create")
 def create_report():
-    rep = Report({"condition":"cough","date":getTimestamp()})
+    rep = Report({"condition":"cough","date":getTimestamp()}) 
     
     db.session.add(rep)
     db.session.commit()
