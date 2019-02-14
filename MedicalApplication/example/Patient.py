@@ -43,13 +43,14 @@ def create_Patient():
             "patient_name": request.form.get('patient_name'),
             "patient_date_of_birth": request.form.get('patient_date_of_birth'),
             "patient_location": request.form.get('patient_location'),
-            "patient_occupation": request.form.get('patient_occupation'),}))
+            "patient_occupation": request.form.get('patient_occupation')}))
     db.session.commit()
     patients = Patient.query.all()
     for p in patients: 
         print("Patient Id:"+str(p.patient_id)+"Name:"+p.patient_name+"D.O.B:"+p.patient_date_of_birth+"Location:"+p.patient_date_of_birth+"Occupation:"+p.patient_occupation)
     
-    return jsonpickle.encode(patients) 
+    return render_template("patient.html", result=patients, content_type="application/json")
+
 @app.route("/patient/example")
 def fetch_all_Patient():
     
@@ -58,7 +59,8 @@ def fetch_all_Patient():
     for p in patients: 
         print("Patient Id:"+str(p.patient_id)+"Name:"+p.patient_name+"D.O.B:"+p.patient_date_of_birth+"Location:"+p.patient_date_of_birth+"Occupation:"+p.patient_occupation)
         
-    return jsonpickle.encode(patients)    
+    return render_template("patient.html", result=patients, content_type="application/json")
+      
    
 
 class Manager(db.Model):
