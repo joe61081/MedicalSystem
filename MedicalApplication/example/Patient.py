@@ -20,8 +20,7 @@ class Patient(db.Model):
     patient_occupation = db.Column('patient_occupation',db.String(30))
     #manager_id = db.Column(db.Integer,db.ForeignKey('alc_Managers.manager_id'),nullable=False)
     #reports = db.relationship("Report", backref=db.backref('Patients', lazy=True))
-    
-    
+    reports = db.relationship("Report")
     
     def __init__(self,params):
         self.patient_name = params["patient_name"]
@@ -108,11 +107,12 @@ class Report(db.Model):
     condition = db.Column('condition',db.String(50))
     date = db.Column('date', db.TIMESTAMP, nullable=False)
     #patient_id = db.Column("Patient", db.Integer, db.ForeignKey('alc_Patients.patient_id'), nullable=False)
+    patient_id = db.Column("patient_id", db.Integer, db.ForeignKey('alc_Patients.patient_id'), nullable=False)
     
     def __init__(self,params):
         self.condition = params["condition"]
         self.date = params["date"]
-        #self.patient_id = params["Patients"]
+        self.patient_id = params["patient_id"]
         pass
     
     def __str__(self):
@@ -125,7 +125,12 @@ def create_report():
     db.session.add(
         Report({
             "condition": request.form.get('condition'),
-            "date": request.form.get('date').getTimestamp()}))
+
+            
+            "date": getTimestamp(),
+            "patient_id":request.form.get("patient_id")
+            }))
+
     db.session.commit()
 
      
@@ -150,9 +155,9 @@ def fetch_all_reports():
     return jsonpickle.encode(reports)
 
 if __name__ == '__main__':
-    #db.create_all()
+    db.create_all()
 
-    #db.create_all()
+    
     #create_manager()
     #create_report()
     #create_Patient()

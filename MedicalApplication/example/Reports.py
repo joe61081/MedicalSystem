@@ -15,7 +15,6 @@ class Report(db.Model):
     report_id = db.Column(db.Integer,primary_key=True)
     condition = db.Column('condition',db.String(50))
     date = db.Column('date', db.TIMESTAMP, nullable=False)
-    reports = db.relationship("Report", backref=db.backref('patient', lazy=True))
     
     def __init__(self,params):
         self.condition = params["condition"]
