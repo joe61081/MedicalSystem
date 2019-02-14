@@ -65,6 +65,7 @@ class Manager(db.Model):
     __tablename__ = "alc_Managers"
     manager_id = db.Column(db.Integer, primary_key=True)
     name = db.Column('manager_name', db.String(50))
+    reports = db.relationship("Report")
     '''patients= db.relationship('Patient',
                               backref=db.backref('Manager', lazy=True))
     '''
@@ -108,11 +109,13 @@ class Report(db.Model):
     date = db.Column('date', db.TIMESTAMP, nullable=False)
     #patient_id = db.Column("Patient", db.Integer, db.ForeignKey('alc_Patients.patient_id'), nullable=False)
     patient_id = db.Column("patient_id", db.Integer, db.ForeignKey('alc_Patients.patient_id'), nullable=False)
+    manager_id = db.Column("manager_id", db.Integer, db.ForeignKey('alc_Managers.manager_id'), nullable=False)
     
     def __init__(self,params):
         self.condition = params["condition"]
         self.date = params["date"]
         self.patient_id = params["patient_id"]
+        self.manager_id = params["manager_id"]
         pass
     
     def __str__(self):
@@ -126,7 +129,8 @@ def create_report():
         Report({
             "condition": request.form.get('condition'),
             "date": getTimestamp(),
-            "patient_id":request.form.get("patient_id")
+            "patient_id":request.form.get("patient_id"),
+            "manager_id":request.form.get("manager_id")
             }))
     db.session.commit()
 
