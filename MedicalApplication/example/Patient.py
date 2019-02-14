@@ -13,7 +13,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']='mysql+mysqlconnector://root:root@localhost:3306/medicalreports'
 db = SQLAlchemy(app)
 
-#Classes
+
 class Patient(db.Model):
     __tablename__ = "alc_Patients"
     patient_id = db.Column(db.Integer,primary_key=True) 
@@ -74,11 +74,6 @@ class Manager(db.Model):
     def __str__(self):
         return "Id: "+str(self.manager_id)+" Name: "+self.name    
  
-# Create Methods
-
-    
-
-
 
 @app.route('/patient/create', methods = ['POST'])
 def create_Patient():
