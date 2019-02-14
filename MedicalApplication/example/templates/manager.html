@@ -5,6 +5,7 @@
 <title>Manager Information</title>
 </head>
 <body>
+{% include "navbar.html" %}
 <h1>Manager Information </h1>
 </table>
 <form id="pat-reg-form" method="POST" action="/manager/create">
@@ -14,6 +15,31 @@
 <td><input id="add-man" type="submit" value="Add"></td>
 </table>
 </form>
+
+{% if result %}
+<table class="table table-dark" border="1">
+	<tr><td colspan=5><h1>All Reports</h1></td></tr>
+	<tr>
+	<th>Report Id</th>
+	<th>Condition</th>
+	<th>Date Created</th>
+	<th>Patient Id</th>
+	<th>Manager Id</th>
+	</tr>
+	{% for rep in result %}
+	<tr>
+	<td>{{rep.report_id}}</td>
+	<td>{{rep.condition}}</td>
+	<td>{{rep.date}}</td>
+	<td>{{rep.patient_id}}</td>
+	<td>{{rep.manager_id}}</td>
+	</tr>
+	{%endfor%}
+	<tr>
+	<td id="count" colspan="5">Total Reports: {{result|count}}	 </td>
+	</tr>
+</table>
+{%endif%}
 
 </body>
 </html>
