@@ -1,0 +1,12 @@
+Feature: Patient Management using Text Files with JSON Format
+
+Scenario: Load Patient Details in JSON Format
+	Given I load for Patient details from Json File
+	Then I will get the Patient details count
+	
+Scenario: Add Patient Details in JSON Format
+	Given a set of pats for JSON
+	|patient_id	|patient_name	|patient_date_of_birth	|patient_location|patient_occupation
+	|2			|Bill			|19/03/1995				|York			 |Drummer
+	|3			|John			|19/03/1996				|Town			 |Lawman
+	Then Count should increase

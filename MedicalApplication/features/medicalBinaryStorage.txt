@@ -1,0 +1,14 @@
+Feature: Patient Management using Binary Files
+
+Scenario: Load Patient Details
+	Given I load for Patient details
+	Then I will get the Patient details count
+	
+Scenario: Add Patient Details
+	Given a set of pats
+	|patient_id	|patient_name	|patient_date_of_birth	|patient_location|patient_occupation
+	|2			|Bill			|19/03/1995				|York			 |Drummer
+	|3			|John			|19/03/1996				|Town			 |Lawman
+	Then Count should increase
+	
+	

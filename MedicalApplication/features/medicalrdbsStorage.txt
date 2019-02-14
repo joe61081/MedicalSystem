@@ -1,0 +1,15 @@
+Feature: Patient Management using RDBMS Database
+
+Scenario: Add Patient in Database Table 
+	Given examples of Patients to add in table
+	|patient_id	|patient_name	|patient_date_of_birth	|patient_location|patient_occupation
+	|2			|Bill			|19/03/1995				|York			 |Drummer
+	|3			|John			|19/03/1996				|Town			 |Lawman
+
+	Then the patient data could be fetched from table 
+	
+Scenario: Fetch All Patient Details from the Database Table
+	Given Querying for Patient Data from Table
+	Then to get the list of patients present in table
+	
+	
