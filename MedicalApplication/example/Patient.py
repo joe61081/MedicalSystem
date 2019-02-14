@@ -20,6 +20,10 @@ class Patient(db.Model):
     patient_occupation = db.Column('patient_occupation',db.String(30))
     #manager_id = db.Column(db.Integer,db.ForeignKey('alc_Managers.manager_id'),nullable=False)
     #reports = db.relationship("Report", backref=db.backref('Patients', lazy=True))
+<<<<<<< HEAD
+=======
+    reports = db.relationship("Report")
+>>>>>>> branch 'master' of https://github.com/joe61081/MedicalSystem.git
     
     def __init__(self,params):
         self.patient_name = params["patient_name"]
@@ -47,6 +51,7 @@ def create_Patient():
     for p in patients: 
         print("Patient Id:"+str(p.patient_id)+"Name:"+p.patient_name+"D.O.B:"+p.patient_date_of_birth+"Location:"+p.patient_date_of_birth+"Occupation:"+p.patient_occupation)
     
+<<<<<<< HEAD
     return jsonpickle.encode(patients) 
 
 @app.route('/patient')
@@ -76,6 +81,11 @@ def delete_manager():
     return render_template('show_all.html',manager =Manager.query.all())
 
 @app.route("/patient/fetch")
+=======
+    return render_template("patient.html", result=patients, content_type="application/json")
+
+@app.route("/patient/example")
+>>>>>>> branch 'master' of https://github.com/joe61081/MedicalSystem.git
 def fetch_all_Patient():
     
     patients = Patient.query.all()
@@ -83,13 +93,19 @@ def fetch_all_Patient():
     for p in patients: 
         print("Patient Id:"+str(p.patient_id)+"Name:"+p.patient_name+"D.O.B:"+p.patient_date_of_birth+"Location:"+p.patient_date_of_birth+"Occupation:"+p.patient_occupation)
         
+<<<<<<< HEAD
     return jsonpickle.encode(patients)    
+=======
+    return render_template("patient.html", result=patients, content_type="application/json")
+      
+>>>>>>> branch 'master' of https://github.com/joe61081/MedicalSystem.git
    
 
 class Manager(db.Model):
     __tablename__ = "alc_Managers"
     manager_id = db.Column(db.Integer, primary_key=True)
     name = db.Column('manager_name', db.String(50))
+    reports = db.relationship("Report")
     '''patients= db.relationship('Patient',
                               backref=db.backref('Manager', lazy=True))
     '''
@@ -100,7 +116,12 @@ class Manager(db.Model):
         return "Id: "+str(self.manager_id)+" Name: "+self.name
    
 
-@app.route('/manager-create', methods = ['POST'])
+@app.route('/manager/register')
+def register_manager():
+    return render_template("manager.html", content_type="text/html")
+
+
+@app.route('/manager/create', methods = ['POST'])
 def create_manager():
     #man = Manager({"name":"Test Manager 3"})
     
@@ -112,7 +133,7 @@ def create_manager():
     for man in managers:
         print("ID: "+str(man.manager_id)+" Name: "+man.name )
     
-    return jsonpickle.encode(Manager.query.all())
+    return render_template("manager.html", result=managers, content_type="application/json")
 
 @app.route("/manager-fetch")
 def fetch_all_managers():
@@ -132,32 +153,51 @@ class Report(db.Model):
     condition = db.Column('condition',db.String(50))
     date = db.Column('date', db.TIMESTAMP, nullable=False)
     #patient_id = db.Column("Patient", db.Integer, db.ForeignKey('alc_Patients.patient_id'), nullable=False)
+    patient_id = db.Column("patient_id", db.Integer, db.ForeignKey('alc_Patients.patient_id'), nullable=False)
+    manager_id = db.Column("manager_id", db.Integer, db.ForeignKey('alc_Managers.manager_id'), nullable=False)
     
     def __init__(self,params):
         self.condition = params["condition"]
         self.date = params["date"]
-        #self.patient_id = params["Patients"]
+        self.patient_id = params["patient_id"]
+        self.manager_id = params["manager_id"]
         pass
     
     def __str__(self):
         return "Id:"+str(self.report_id)+" condition:"+self.condition+ "date:"+str(self.date)
 
-@app.route("/report-create")
+@app.route('/report-create', methods = ['POST'] )
 def create_report():
-    rep = Report({"condition":"cough","date":getTimestamp()}) 
+    #rep = Report({"condition":"cough","date":getTimestamp()}) 
     
-    db.session.add(rep)
+    db.session.add(
+        Report({
+            "condition": request.form.get('condition'),
+
+            
+            "date": getTimestamp(),
+            "patient_id":request.form.get("patient_id"),
+            "manager_id":request.form.get("manager_id")
+            }))
+
     db.session.commit()
 
      
+<<<<<<< HEAD
     for rep in Report.query.all():
 
+=======
+
+    reports = Report.query.all()
+    for rep in reports:
+
+>>>>>>> branch 'master' of https://github.com/joe61081/MedicalSystem.git
         print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+str(rep.date) )
 
         print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+str(rep.date))
 
     
-    return str(Report.query.all())
+    return jsonpickle.encode(reports)
 
 @app.route("/report-fetch")
 def fetch_all_reports():
@@ -167,11 +207,19 @@ def fetch_all_reports():
         print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+rep.date)
         
     return jsonpickle.encode(reports)
+<<<<<<< HEAD
 
 if __name__ == '__main__':
     #db.create_all()
 
     #db.create_all()
+=======
+
+if __name__ == '__main__':
+    db.create_all()
+
+    
+>>>>>>> branch 'master' of https://github.com/joe61081/MedicalSystem.git
     #create_manager()
     #create_report()
     #create_Patient()
