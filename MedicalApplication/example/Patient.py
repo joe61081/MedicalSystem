@@ -19,7 +19,6 @@ class Patient(db.Model):
     #manager_id = db.Column(db.Integer,db.ForeignKey('alc_managers.manager_id'),nullable=False)
     
     
-    
     def __init__(self,params):
         self.patient_name = params["patient_name"]
         self.patient_date_of_birth=params["patient_date_of_birth"]
@@ -97,6 +96,7 @@ class Report(db.Model):
     def __init__(self,params):
         self.condition = params["condition"]
         self.date = params["date"]
+        self.patient_id = params["Patient"]
         pass
     
     def __str__(self):
