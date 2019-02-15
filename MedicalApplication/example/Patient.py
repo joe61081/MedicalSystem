@@ -71,12 +71,6 @@ def fetch_all_Patient():
     
     for p in patients: 
         print("Patient Id:"+str(p.patient_id)+"Name:"+p.patient_name+"D.O.B:"+p.patient_date_of_birth+"Location:"+p.patient_date_of_birth+"Occupation:"+p.patient_occupation)
-        
-
-
-    return jsonpickle.encode(patients)    
-
-    return render_template("patient.html", result=patients, content_type="application/json")
 
     return render_template("patient.html", result=patients, content_type="application/json")
 
