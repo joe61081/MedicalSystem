@@ -97,7 +97,7 @@ class Manager(db.Model):
         return "Id: "+str(self.manager_id)+" Name: "+self.name
    
 
-@app.route('/manager-create', methods = ['POST'])
+@app.route('/manager/create', methods = ['POST'])
 def create_manager():
     #man = Manager({"name":"Test Manager 3"})
     
@@ -109,7 +109,9 @@ def create_manager():
     for man in managers:
         print("ID: "+str(man.manager_id)+" Name: "+man.name )
     
-    return jsonpickle.encode(Manager.query.all())
+    patients = Patient.query.all()
+    reports = Report.query.all()
+    return render_template('manager.html',patients=patients, result=reports, content_type="text/html")
 
 @app.route("/manager-fetch")
 def fetch_all_managers():
