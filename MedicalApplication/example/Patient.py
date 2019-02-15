@@ -1,10 +1,11 @@
 from flask.app import Flask, request, Response
 from sqlalchemy.orm import backref
-from flask_alchemy import SQLAlchemy 
+ 
 import jsonpickle
 from flask.templating import render_template
 from _datetime import datetime
 from flask.globals import request, session
+from flask_sqlalchemy import SQLAlchemy
 
 
 app = Flask(__name__)
@@ -195,12 +196,12 @@ def fetch_all_reports():
     for rep in reports:
         print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+str(rep.date))
         
-<<<<<<< HEAD
+
 
     return jsonpickle.encode(reports)
 
     return render_template("manager.html", result=reports, content_type="text/html")
-=======
+
     return render_template("manager.html", result=reports, patients=patients, content_type="text/html")
 
 @app.route("/report/delete/<report_id>", methods=['POST', 'GET', 'DELETE'])
@@ -212,9 +213,6 @@ def delete_report(report_id):
     reports = Report.query.all()
     patients = Patient.query.all()
     return render_template('manager.html',result=reports, patients=patients, content_type="text/html")
->>>>>>> branch 'master' of https://github.com/joe61081/MedicalSystem.git
-
-
 if __name__ == '__main__':
     db.create_all()
 

@@ -4,11 +4,9 @@ from nose.tools.trivial import ok_
 from selenium import webdriver
 
 
-
-
 @given("Request for All Patients")
 def fetch_pat_from_api(context):
-    context.pats = requests.get("http://localhost:7700/patient/fetch").json()
+    context.pats = requests.get("http://localhost:7700/patient/example").json()
     
     
 @then("Have all patients available from application")
@@ -18,7 +16,7 @@ def check_all_patients_present(context):
 @given("a set of patients for API")
 def post_pat_data_to_API(context):
     context.currentCount = len(requests.get(
-        "http://localhost:7700/patient/fetch").json())
+        "http://localhost:7700/patient/example").json())
     for row in context.table:
         new_pat = requests.post("http://localhost:7700/patient/create",
                     data={"patient_id":row["patient_id"],
@@ -31,12 +29,12 @@ def post_pat_data_to_API(context):
 @then("increase Patients Count from API")
 def check_count_increase(context):
     ok_(context.currentCount<len(requests.get(
-        "http://localhost:7700//patient/fetch").json()), "Patient Registration Failed")
+        "http://localhost:7700//patient/example").json()), "Patient Registration Failed")
         
 @given("Request for Patient Home Page")
 def request_Patient_home_page(context):
     context.driver =webdriver.Chrome()
-    context.driver.get("http://localhost:7700/patient")
+    context.driver.get("http://localhost:7700/patient/example")
     countText = context.driver.find_element_by_id("count").text
     print(context.countText)
 
@@ -49,7 +47,7 @@ def check_patient_count(context):
 @given("a set of pats for HTML Form") 
 def submit_html_pat_form(context):
     context.driver = webdriver.Chrome()
-    context.driver.get("http://localhost:7700/patient")
+    context.driver.get("http://localhost:7700/patient/example")
     context.count_text = context.driver.find_element_by_id("count").text
     for row in context.table:
         context.driver.find_element_by_id("patient_id").send_keys(row["patient_id"]) 

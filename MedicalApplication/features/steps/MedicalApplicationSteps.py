@@ -1,14 +1,15 @@
 import behave
-from nose.tools.trivial import ok_
 
 from example import Patient
 from example.MedicalStorageManager import PatientStorage
+from example.Patient import Patient
+from nose.tools.trivial import ok_
 
 
 @given("I load for Patient details")
 def read_patient_data(context):
     PatientStorage.add_Patient_to_binary_file(
-        Patient({"patient_name":1,
+        Patient({"patient_name":"dave",
             "patient_date_of_birth": "19/04/1994",
             "patient_location": "Leeds",
             "patient_occupation": "Builder"}), "files/pat_data.bin")
@@ -69,12 +70,12 @@ def check_pat_in_db(context):
     for patientnos in context.patientnos:
         ok_(isinstance(PatientStorage.fetch_patient_by_patient_id_from_db(patient_id), Patient),
             "Patient Not Found" + str(patient_id))
-'''
+
 
 @given("Querying for Patient Data from Table")
-def fetch_all_patients(context):
+def fetch_all_patients_from_db(context):
     context.pats = PatientStorage.fetch_all_patients_from_db()
-  
+ '''
 
 @then("to get the List of All Patient present in table")
 def check_patient_fetched(context):
@@ -85,7 +86,7 @@ def check_patient_fetched(context):
 def add_documents_in_patients_collection(context):  
     context.patientnos = []
     for row in context.table:
-        context.empnos.append(row["empno"])
+        context.patietnos.append(row["patient_id"])
         if(not isinstance({PatientStorage.fetch_all_patients_from_collection(row["patient_id"]), Patient)):
             PatientStorage.insert_patient_in_collection(
             Patient({"patient_id":row["patient_id"],
