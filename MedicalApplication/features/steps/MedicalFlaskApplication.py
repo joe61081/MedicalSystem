@@ -1,15 +1,12 @@
-import behave 
-from pip._vendor import requests 
-from nose.tools.trivial import ok_ 
+import behave
+from pip._vendor import requests
+from nose.tools.trivial import ok_
+import json
 from selenium import webdriver
-
-
-
 
 @given("Request for All Patients")
 def fetch_pat_from_api(context):
-    context.pats = requests.get("http://localhost:7700/patient/fetch").json()
-    
+    context.pats = requests.get("http://localhost:7700/patient/example")
     
 @then("Have all patients available from application")
 def check_all_patients_present(context):
@@ -17,21 +14,21 @@ def check_all_patients_present(context):
 
 @given("a set of patients for API")
 def post_pat_data_to_API(context):
-    context.currentCount = len(requests.get(
-        "http://localhost:7700/patient/fetch").json())
+    context.pats = requests.get(
+        "http://localhost:7700/patient/example")
     for row in context.table:
         new_pat = requests.post("http://localhost:7700/patient/create",
                     data={"patient_id":row["patient_id"],
                           "patient_name":row["patient_name"],
                           "patient_date_of_birth":row["patient_date_of_birth"],
                           "patient_location":row["patient_location"],
-                          "patient_occupation":row["patient_occupation"]}.json())
+                          "patient_occupation":row["patient_occupation"]})
         print(new_pat)
 
 @then("increase Patients Count from API")
 def check_count_increase(context):
-    ok_(context.currentCount<len(requests.get(
-        "http://localhost:7700//patient/fetch").json()), "Patient Registration Failed")
+    ok_(context.pats<len(requests.get(
+        "http://localhost:7700//patient/example")), "Patient Registration Failed")
         
 @given("Request for Patient Home Page")
 def request_Patient_home_page(context):
