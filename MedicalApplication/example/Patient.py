@@ -1,5 +1,6 @@
 from flask.app import Flask, request, Response
 from sqlalchemy.orm import backref
+
 import jsonpickle
 from flask.templating import render_template
 from _datetime import datetime
@@ -188,7 +189,17 @@ def fetch_all_reports():
     
     for rep in reports:
         print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+str(rep.date))
+
         
+
+
+    return jsonpickle.encode(reports)
+
+    return render_template("manager.html", result=reports, content_type="text/html")
+
+
+        
+
     return render_template("manager.html", result=reports, patients=patients, content_type="text/html")
 
 @app.route("/report/delete/<report_id>", methods=['POST', 'GET', 'DELETE'])
@@ -200,8 +211,6 @@ def delete_report(report_id):
     reports = Report.query.all()
     patients = Patient.query.all()
     return render_template('manager.html',result=reports, patients=patients, content_type="text/html")
-
-
 if __name__ == '__main__':
     db.create_all()
 

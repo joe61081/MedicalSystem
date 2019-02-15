@@ -1,12 +1,12 @@
 from  flask.app import Flask
-from flask_alchemy import SQLAlchemy
 import jsonpickle
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root@localhost:3306/medicalreports'
 
-db = sqlalchemy(app)
+db = SQLAlchemy(app)
 
 class Manager(db.Model):
     __tablename__ = "alc_Managers"
