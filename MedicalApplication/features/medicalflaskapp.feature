@@ -5,15 +5,9 @@ Scenario: Get the Patient List from API
 	Then Have all Patients available from application
 	
 Scenario: Add patient Details using API
-<<<<<<< HEAD
 	Given a set of patients for API
 	|patient_id	|patient_name	|patient_date_of_birth	|patient_location|patient_occupation	|
 	|1			|John			|19/03/1994				|Leeds			 |Builder				|
-=======
-	Given a set of Patients for API
-	|patient_id	|patient_name	|patient_date_of_birth	|patient_location|patient_occupation
-	|1			|John			|19/03/1994				|Leeds			 |Builder
->>>>>>> branch 'master' of https://github.com/joe61081/MedicalSystem.git
 	Then increase Patients Count from API
 	
 Scenario: Get the Patient List from Browser

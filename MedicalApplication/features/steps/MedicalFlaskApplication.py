@@ -4,18 +4,9 @@ from nose.tools.trivial import ok_
 import json
 from selenium import webdriver
 
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'master' of https://github.com/joe61081/MedicalSystem.git
 @given("Request for All Patients")
 def fetch_pat_from_api(context):
-<<<<<<< HEAD
     context.pats = requests.get("http://localhost:7700/patient/example")
-=======
-    context.pats = requests.get("http://localhost:7700/patient/example").json()
-    
->>>>>>> branch 'master' of https://github.com/joe61081/MedicalSystem.git
     
 @then("Have all Patients available from application")
 def check_all_patients_present(context):
@@ -23,13 +14,8 @@ def check_all_patients_present(context):
 
 @given("a set of Patients for API")
 def post_pat_data_to_API(context):
-<<<<<<< HEAD
     context.pats = requests.get(
         "http://localhost:7700/patient/example")
-=======
-    context.currentCount = len(requests.get(
-        "http://localhost:7700/patient/example").json())
->>>>>>> branch 'master' of https://github.com/joe61081/MedicalSystem.git
     for row in context.table:
         new_pat = requests.post("http://localhost:7700/patient/create",
                     data={"patient_id":row["patient_id"],
@@ -41,15 +27,9 @@ def post_pat_data_to_API(context):
 
 @then("increase Patients Count from API")
 def check_count_increase(context):
-<<<<<<< HEAD
     ok_(context.pats<len(requests.get(
         "http://localhost:7700//patient/example")), "Patient Registration Failed")
-        
-=======
-    ok_(context.currentCount<len(requests.get(
-        "http://localhost:7700//patient/example").json()), "Patient Registration Failed")
-       
->>>>>>> branch 'master' of https://github.com/joe61081/MedicalSystem.git
+    
 @given("Request for Patient Home Page")
 def request_patient_home_page(context):
     context.driver =webdriver.Chrome()
