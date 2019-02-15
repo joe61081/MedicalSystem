@@ -21,7 +21,7 @@ class Patient(db.Model):
     patient_occupation = db.Column('patient_occupation',db.String(30))
     #manager_id = db.Column(db.Integer,db.ForeignKey('alc_Managers.manager_id'),nullable=False)
     #reports = db.relationship("Report", backref=db.backref('Patients', lazy=True))
-    reports = db.relationship("Report")
+    reports = db.relationship("Report", cascade="all, delete-orphan")
     
     def __init__(self,params):
         self.patient_name = params["patient_name"]

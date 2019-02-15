@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type= "text/css" href="{{url_for('static', filename='styles/style.css')}}">
 <meta charset="ISO-8859-1">
 <title>Manager Information</title>
 </head>
@@ -12,7 +11,7 @@
 <table>
 <tr>
 <td><input name="name" placeholder="Name" id="name"></td>
-<td><input id="add-man" type="submit" value="Add"></td>
+<td><input class="btn btn-dark" id="add-man" type="submit" value="Add"></td>
 </table>
 </form>
 
@@ -23,13 +22,13 @@
 <td><input name="condition" placeholder="Condition" id="condition"></td>
 <td><input name="patient_id" placeholder="Patient ID" id="patient_id"></td>
 <td><input name="manager_id" placeholder="Manager ID" id="manager_id"></td>
-<td><input id="add-man" type="submit" value="Add"></td>
+<td><input class="btn btn-dark" id="add-man" type="submit" value="Add"></td>
 </table>
 </form>
 
 {% if result %}
 <table class="table table-dark" border="1">
-	<tr><td colspan=7><h1>All Reports</h1></td></tr>
+	<tr><td colspan=6><h1>All Reports</h1></td></tr>
 	<tr>
 	<th>Report Id</th>
 	<th>Condition</th>
@@ -37,7 +36,6 @@
 	<th>Patient Id</th>
 	<th>Manager Id</th>
 	<th>Delete</th>
-	<th>Create Report</th>
 	</tr>
 	{% for rep in result %}
 	<tr>
@@ -51,18 +49,17 @@
             <input type="submit" value="X" class="btn btn-danger">
         </form>
     </td>
-    <td> <input type="submit" value="+" class="btn btn-primary"></td>
 	</tr>
 	{%endfor%}
 	<tr>
-	<td id="count" colspan="7">Total Reports: {{result|count}}	 </td>
+	<td id="count" colspan="6">Total Reports: {{result|count}}	 </td>
 	</tr>
 </table>
 {%endif%}
 
 {% if result %}
 <table class="table table-dark" border="1">
-	<tr><td colspan=6><h1>Patient Information </h1></td></tr>
+	<tr><td colspan=7><h1>Patient Information </h1></td></tr>
 	<tr>
 	<th>Patient Id</th>
 	<th>Name</th>
@@ -70,6 +67,7 @@
 	<th>Location</th>
 	<th>Occupation</th>
 	<th>Delete</th>
+	<th>Create Report</th>
 	</tr>
 	{% for pat in patients %}
 	<tr>
@@ -82,10 +80,11 @@
             <input type="hidden" name="_method" value="DELETE">
             <input type="submit" value="X" class="btn btn-danger">
         </form></td>
+    <td> <input type="submit" value="+" class="btn btn-primary"></td>
 	</tr>
 	{%endfor%}
 	<tr>
-	<td id="count" colspan="6">Total Patients: {{patients|count}}	 </td>
+	<td id="count" colspan="7">Total Patients: {{patients|count}}	 </td>
 	</tr>
 </table>
 {%endif%}
