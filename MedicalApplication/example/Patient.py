@@ -74,6 +74,14 @@ def delete_patient(patient_id):
     reports = Report.query.all()
     return render_template('manager.html',patients=patients, result=reports, content_type="text/html")
 
+@app.route("/patient/fetch/<patient_id>", methods=['GET'])
+def fetch_patient_by_id(patient_id):
+    patient_id = patient_id
+    patient = Patient.query.filter_by(patient_id=patient_id).first()
+    patients = Patient.query.all()
+    return jsonpickle.encode(patient)
+    #return render_template('patient.html',patients=patients, patient=patient, content_type="text/html")
+
 class Manager(db.Model):
     __tablename__ = "alc_Managers"
     manager_id = db.Column(db.Integer, primary_key=True)

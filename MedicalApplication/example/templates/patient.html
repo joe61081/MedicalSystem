@@ -8,13 +8,14 @@
 {% include "navbar.html" %}
 {% if result %}
 <table class="table table-dark" border="1">
-	<tr><td colspan=5><h1>Patient Information </h1></td></tr>
+	<tr><td colspan=6><h1>Patient Information </h1></td></tr>
 	<tr>
 	<th>Patient Id</th>
 	<th>Name</th>
 	<th>D.O.B</th>
 	<th>Location</th>
 	<th>Occupation</th>
+	<th>View Profile</th>
 	</tr>
 	{% for pat in result %}
 	<tr>
@@ -23,10 +24,16 @@
 	<td>{{pat.patient_date_of_birth}}</td>
 	<td>{{pat.patient_location}}</td>
 	<td>{{pat.patient_occupation}}</td>
+	<td>
+		<form action="{{url_for('fetch_patient_by_id', patient_id=pat.patient_id)}}" method="get">
+    		<input type="hidden" name="_method" value="GET">
+			<input type="submit" value="V" class="btn btn-primary">
+		</form>
+	</td>
 	</tr>
 	{%endfor%}
 	<tr>
-	<td id="count" colspan="5">Total Patients: {{result|count}}	 </td>
+	<td id="count" colspan="6">Total Patients: {{result|count}}	 </td>
 	</tr>
 </table>
 {%endif%}
