@@ -7,11 +7,21 @@
 <body>
 {% include "navbar.html" %}
 <h1>Manager Information </h1>
-</table>
 <form id="pat-reg-form" method="POST" action="/manager/create">
 <table>
 <tr>
 <td><input name="name" placeholder="Name" id="name"></td>
+<td><input id="add-man" type="submit" value="Add"></td>
+</table>
+</form>
+
+<h1>Create Report</h1>
+<form id="rep-reg-form" method="POST" action="/report-create">
+<table>
+<tr>
+<td><input name="condition" placeholder="Condition" id="condition"></td>
+<td><input name="patient_id" placeholder="Patient ID" id="patient_id"></td>
+<td><input name="manager_id" placeholder="Manager ID" id="manager_id"></td>
 <td><input id="add-man" type="submit" value="Add"></td>
 </table>
 </form>

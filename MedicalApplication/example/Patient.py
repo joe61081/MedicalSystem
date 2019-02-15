@@ -150,6 +150,7 @@ def create_report():
      
 
     reports = Report.query.all()
+    patients = Patient.query.all()
     for rep in reports:
 
         print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+str(rep.date) )
@@ -157,7 +158,7 @@ def create_report():
         print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+str(rep.date))
 
     
-    return jsonpickle.encode(reports)
+    return render_template("manager.html", result=reports, patients=patients, content_type="text/html")
 
 @app.route("/report-fetch")
 def fetch_all_reports():
