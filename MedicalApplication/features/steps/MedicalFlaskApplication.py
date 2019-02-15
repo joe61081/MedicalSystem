@@ -38,13 +38,22 @@ def fetch_rep_from_api(context):
 def check_all_reports_present(context):
     ok_(len(context.reps)>0,"Reports Not Available")
     
+@given("a set of managers for API")
+def post_man_data_to_API(context):
+    context.mans = requests.get(
+        "http://localhost:7700/manager-fetch")
+    for row in context.table:
+        new_pat = requests.post("http://localhost:7700/manager/create",
+                    data={"manager_name":row["manager_name"]})
+        print(new_pat)
+        
+@then("Then increase managers Count from API")
+def check_all_managers_reports_present(context):
+    ok_(len(context.mans)>0,"Managers Not Available")
+    
 @given("Request for All Managers")
 def fetch_man_from_api(context):
     context.mans = requests.get("http://localhost:7700/manager-fetch")
-    
-@then("Have all Managers available from application")
-def check_all_managers_reports_present(context):
-    ok_(len(context.mans)>0,"Managers Not Available")
     
 @given("Request for Patient Home Page")
 def request_patient_home_page(context):

@@ -14,6 +14,12 @@ Scenario: Get the Report List from API
 	Given Request for All Reports
 	Then Have all Reports available from application
 	
+Scenario: Add manager Details using API
+	Given a set of managers for API
+	|manager_name	|
+	|Test			|
+	Then increase managers Count from API	
+	
 Scenario: Get the Manager List from API 
 	Given Request for All Managers
 	Then Have all Managers available from application	
