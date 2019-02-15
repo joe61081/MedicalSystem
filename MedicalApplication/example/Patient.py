@@ -188,17 +188,7 @@ def fetch_all_reports():
     patients = Patient.query.all()
     
     for rep in reports:
-        print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+str(rep.date))
-
-        
-
-
-    return jsonpickle.encode(reports)
-
-    return render_template("manager.html", result=reports, content_type="text/html")
-
-
-        
+        print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+str(rep.date))        
 
     return render_template("manager.html", result=reports, patients=patients, content_type="text/html")
 
