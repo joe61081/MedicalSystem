@@ -7,7 +7,6 @@
 <body>
 {% include "navbar.html" %}
 <h1>Manager Information </h1>
-</table>
 <form id="pat-reg-form" method="POST" action="/manager/create">
 <table>
 <tr>
@@ -16,15 +15,28 @@
 </table>
 </form>
 
+<h1>Create Report</h1>
+<form id="rep-reg-form" method="POST" action="/report-create">
+<table>
+<tr>
+<td><input name="condition" placeholder="Condition" id="condition"></td>
+<td><input name="patient_id" placeholder="Patient ID" id="patient_id"></td>
+<td><input name="manager_id" placeholder="Manager ID" id="manager_id"></td>
+<td><input id="add-man" type="submit" value="Add"></td>
+</table>
+</form>
+
 {% if result %}
 <table class="table table-dark" border="1">
-	<tr><td colspan=5><h1>All Reports</h1></td></tr>
+	<tr><td colspan=7><h1>All Reports</h1></td></tr>
 	<tr>
 	<th>Report Id</th>
 	<th>Condition</th>
 	<th>Date Created</th>
 	<th>Patient Id</th>
 	<th>Manager Id</th>
+	<th>Delete</th>
+	<th>Create Report</th>
 	</tr>
 	{% for rep in result %}
 	<tr>
@@ -33,10 +45,46 @@
 	<td>{{rep.date}}</td>
 	<td>{{rep.patient_id}}</td>
 	<td>{{rep.manager_id}}</td>
+	<td><form action="{{url_for('delete_report', report_id=rep.report_id)}}" method="post">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="submit" value="X" class="btn btn-danger">
+        </form>
+    </td>
+    <td> <input type="submit" value="+" class="btn btn-primary"></td>
 	</tr>
 	{%endfor%}
 	<tr>
-	<td id="count" colspan="5">Total Reports: {{result|count}}	 </td>
+	<td id="count" colspan="7">Total Reports: {{result|count}}	 </td>
+	</tr>
+</table>
+{%endif%}
+
+{% if result %}
+<table class="table table-dark" border="1">
+	<tr><td colspan=6><h1>Patient Information </h1></td></tr>
+	<tr>
+	<th>Patient Id</th>
+	<th>Name</th>
+	<th>D.O.B</th>
+	<th>Location</th>
+	<th>Occupation</th>
+	<th>Delete</th>
+	</tr>
+	{% for pat in patients %}
+	<tr>
+	<td>{{pat.patient_id}}</td>
+	<td>{{pat.patient_name}}</td>
+	<td>{{pat.patient_date_of_birth}}</td>
+	<td>{{pat.patient_location}}</td>
+	<td>{{pat.patient_occupation}}</td>
+	<td><form action="{{url_for('delete_patient', patient_id=pat.patient_id)}}" method="post">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="submit" value="X" class="btn btn-danger">
+        </form></td>
+	</tr>
+	{%endfor%}
+	<tr>
+	<td id="count" colspan="6">Total Patients: {{patients|count}}	 </td>
 	</tr>
 </table>
 {%endif%}

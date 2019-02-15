@@ -81,14 +81,24 @@ def fetch_all_Patient():
     return render_template("patient.html", result=patients, content_type="application/json")
 
     return render_template("patient.html", result=patients, content_type="application/json")
-      
-@app.route('/patient/delete')
-def delete_patient():
-    patient_id = request.args.get('patient_id')
+
+@app.route("/patient/delete/<patient_id>", methods=['POST', 'GET', 'DELETE'])
+def delete_patient(patient_id):
+    patient_id = patient_id
     patient = Patient.query.filter_by(patient_id=patient_id).first()
     db.session.delete(patient)
     db.session.commit()
-    return render_template('show_all.html',patient = Patient.query.all())
+    patients = Patient.query.all()
+    reports = Report.query.all()
+    return render_template('manager.html',patients=patients, result=reports, content_type="text/html")
+
+@app.route("/patient/fetch/<patient_id>", methods=['GET'])
+def fetch_patient_by_id(patient_id):
+    patient_id = patient_id
+    patient = Patient.query.filter_by(patient_id=patient_id).first()
+    patients = Patient.query.all()
+    return jsonpickle.encode(patient)
+    #return render_template('patient.html',patients=patients, patient=patient, content_type="text/html")
 
 
 class Manager(db.Model):
@@ -167,6 +177,7 @@ def create_report():
      
 
     reports = Report.query.all()
+    patients = Patient.query.all()
     for rep in reports:
 
         print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+str(rep.date) )
@@ -174,19 +185,34 @@ def create_report():
         print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+str(rep.date))
 
     
-    return jsonpickle.encode(reports)
+    return render_template("manager.html", result=reports, patients=patients, content_type="text/html")
 
 @app.route("/report-fetch")
 def fetch_all_reports():
     reports = Report.query.all()
+    patients = Patient.query.all()
     
     for rep in reports:
         print("ID: "+str(rep.report_id)+" condition: "+(rep.condition)+" date: "+str(rep.date))
         
+<<<<<<< HEAD
 
     return jsonpickle.encode(reports)
 
     return render_template("manager.html", result=reports, content_type="text/html")
+=======
+    return render_template("manager.html", result=reports, patients=patients, content_type="text/html")
+
+@app.route("/report/delete/<report_id>", methods=['POST', 'GET', 'DELETE'])
+def delete_report(report_id):
+    report_id = report_id
+    report = Report.query.filter_by(report_id=report_id).first()
+    db.session.delete(report)
+    db.session.commit()
+    reports = Report.query.all()
+    patients = Patient.query.all()
+    return render_template('manager.html',result=reports, patients=patients, content_type="text/html")
+>>>>>>> branch 'master' of https://github.com/joe61081/MedicalSystem.git
 
 
 if __name__ == '__main__':
