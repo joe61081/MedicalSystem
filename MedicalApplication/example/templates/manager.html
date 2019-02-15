@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type= "text/css" href="{{url_for('static', filename='styles/style.css')}}">
 <meta charset="ISO-8859-1">
 <title>Manager Information</title>
 </head>
 <body>
 {% include "navbar.html" %}
-<h1>Manager Information </h1>
+<h1>Register Manager</h1>
 <form id="pat-reg-form" method="POST" action="/manager/create">
 <table>
 <tr>
