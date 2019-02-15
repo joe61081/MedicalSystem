@@ -10,6 +10,14 @@ Scenario: Add patient Details using API
 	|1			|John			|19/03/1994				|Leeds			 |Builder				|
 	Then increase Patients Count from API
 	
+Scenario: Get the Report List from API 
+	Given Request for All Reports
+	Then Have all Reports available from application
+	
+Scenario: Get the Manager List from API 
+	Given Request for All Managers
+	Then Have all Managers available from application	
+	
 Scenario: Get the Patient List from Browser
 	Given Request for Patient Home Page
 	Then Able to fetch the Patient Count

@@ -30,6 +30,22 @@ def check_count_increase(context):
     ok_(context.pats<len(requests.get(
         "http://localhost:7700//patient/example")), "Patient Registration Failed")
     
+@given("Request for All Reports")
+def fetch_rep_from_api(context):
+    context.reps = requests.get("http://localhost:7700/report-fetch")
+    
+@then("Have all Reports available from application")
+def check_all_reports_present(context):
+    ok_(len(context.reps)>0,"Reports Not Available")
+    
+@given("Request for All Managers")
+def fetch_man_from_api(context):
+    context.mans = requests.get("http://localhost:7700/manager-fetch")
+    
+@then("Have all Managers available from application")
+def check_all_managers_reports_present(context):
+    ok_(len(context.mans)>0,"Managers Not Available")
+    
 @given("Request for Patient Home Page")
 def request_patient_home_page(context):
     context.driver =webdriver.Chrome()
