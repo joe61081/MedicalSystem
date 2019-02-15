@@ -31,7 +31,7 @@ def check_count_increase(context):
     ok_(context.currentCount<len(requests.get(
         "http://localhost:7700//patient/example").json()), "Patient Registration Failed")
        
-@given("the Patient List from Browser")
+@given("Request for Patient Home Page")
 def request_patient_home_page(context):
     context.driver =webdriver.Chrome()
     context.driver.get("http://localhost:7700/patient/example")
